@@ -1,0 +1,35 @@
+# Embedded HTTP (Tomcat) server port
+server:
+  port: 9003
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+
+spring:
+  application:
+    name: audit-trail-service
+
+  data:
+    # host is the container_name of MongoDB in docker-compose.yml
+    # IMPORTANT NOTES: do not share database among microservices in practice - for the purpose of demonstration
+    # and to keep it simple, product-catalog-service and audit-trail-service are sharing the same DB.
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: audittrails
+
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: input
+
+  rabbitmq:
+    addresses: rabbitmq:5672
+    username: admin
+    password: admin

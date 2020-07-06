@@ -1,0 +1,78 @@
+version: "3.8"
+services:
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  zuul-service:
+    build: ./zuul-service
+    container_name: zuul-service
+    ports:
+      - "8762:8762"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server:eureka-server
+
+  product-catalog-service:
+    build: ./product-catalog-service
+    ports:
+      - "9001:9001"
+    depends_on:
+      - eureka-server
+      - mongodb
+    links:
+      - eureka-server:eureka-server
+
+  # IMPORTANT NOTES: for the purpose of demonstration, product-catalog-service and
+  # audit-trail-service are sharing the same DB. However, do not share database among microservices in practice.
+  mongodb:
+    build: ./mongodb
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  pricing-microservice:
+    build: ./pricing-service
+    ports:
+      - "9002:9002"
+    depends_on:
+      - eureka-server
+      - mariadb-pricing-service
+    links:
+      - eureka-server:eureka-server
+
+  mariadb-pricing-service:
+    build: ./mariadb
+    container_name: pricing-service-mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: prices
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+
+
+  audit-trail-service:
+    build: ./audit-trail-service
+    ports:
+      - "9003:9003"
+    depends_on:
+      - eureka-server
+      - mongodb
+      - rabbitmq
+    links:
+      - eureka-server:eureka-server
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"

@@ -1,0 +1,28 @@
+# Embedded HTTP (Tomcat) server port
+server:
+  port: 9002
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+
+spring:
+  application:
+    name: pricing-service
+
+  datasource:
+    url: jdbc:mariadb://pricing-service-mariadb:3306/prices
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+
+logging:
+  level:
+    org:
+      springframework.web: INFO
+      hibernate: DEBUG
+    com.example.ecommercedemo: DEBUG

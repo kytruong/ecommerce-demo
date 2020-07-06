@@ -1,0 +1,6 @@
+rootProject.name = 'ecommerce-demo'
+include 'eureka-server'
+include 'zuul-service'
+include 'product-catalog-service'
+include 'pricing-service'
+include 'audit-trail-service'
