@@ -74,7 +74,9 @@ docker-compose down --remove-orphans
 ```
 
 ###API
+
 **All APIs are setup in Postman collection !['ecommerce-demo.postman_collection.json'](/ecommerce-demo.postman_collection.json)**
+
 ####Product Catalog Microservice
 ##### Overview
 Product Catalog Microservice manages products. It uses MongoDB as persistance store for product information.
