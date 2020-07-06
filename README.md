@@ -26,7 +26,7 @@ All microservices are deployed within Docker hosts.
 2. Supposing the PWA frond-end will try to load product basic information first then loading other info such as prices/recommendations asynchronously 
 
 ### Implementation
-####Scope
+#### Scope
 For demonstration purpose, only three microservices have been implemented. 
 * **Product Catalog Microservice**
 * **Pricing Microservice**
@@ -90,7 +90,7 @@ Method | URI | Description | Parameters | Request JSON | Response JSON
 `PUT` | */products/{id}* | Updates existing product | _[TODO]_ | _[TODO]_ |
 
 #### Pricing Microservice
-#####Overview
+##### Overview
 Provide ability to manage the prices independently from Product Catalog. In reality, pricing model is one of the most complex operation in a eCommerce site.
 
 #### REST API
@@ -102,7 +102,7 @@ Method | URI | Description | Parameters | Request JSON | Response JSON
 `PUT` | */prices* | Update a pricing model | _[TODO]_ | _[TODO]_ |
 
 #### Audit Trail Microservice
-#####Overview
+##### Overview
 Provide ability to save audit logs to DB and query those log on demand.
 
 #### REST API
