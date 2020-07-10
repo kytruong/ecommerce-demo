@@ -22,8 +22,12 @@ All microservices are deployed within Docker hosts.
     - place order
     - notify customer
 #### Performance consideration
-1. Product Catalog, Price, Recommendations are good candidate to use Cache Aside pattern to improve performance
+1. Product Catalog, Price, Recommendations are good candidates to use Cache Aside pattern to improve performance
 2. Supposing the PWA frond-end will try to load product basic information first then loading other info such as prices/recommendations asynchronously 
+
+#### Database consideration
+1. To support the unstructured and variant product attributes such as color, size, tagging and so on, NoSQL (MongoDB in this demo) is used.
+2. The pattern Temporal Table is used to track the history of price's changes. Any changes to the price will be tracked automatically at DB level. 
 
 ### Implementation
 #### Scope
